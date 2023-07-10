@@ -13,8 +13,8 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node", "jest"],
-        "typeRoots": [
+    "types": ["node"],
+    "typeRoots": [
       "node_modules/@types"
     ]
   },
