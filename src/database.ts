@@ -1,5 +1,6 @@
 import * as mongoose from "mongoose";
-const uri: string = "mongodb+srv://jatinsharmaaj:123456Jhu@cluster0.nxypk97.mongodb.net/MLM";
+import { MONGO_URI } from "./data/constant";
+const uri: string =  `${MONGO_URI}/MLM`;
 mongoose.connect(uri, (err: any) => {
     if (err) {
         console.log(err.message);

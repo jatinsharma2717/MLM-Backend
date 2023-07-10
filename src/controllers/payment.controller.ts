@@ -4,10 +4,10 @@ import { userIdDecryption } from "../services/security.service";
 import { paymentDetailsResponse } from "../data/payment";
 import mongodb, { MongoClient, ObjectId, GridFSBucket } from "mongodb";
 import { UserLevels } from "../modals/user-level";
-import { ACCOUNT_SIDE, ACCOUNT_STATUS, PAYMENT_STATUS } from "../data/constant";
+import { ACCOUNT_SIDE, ACCOUNT_STATUS, MONGO_URI, PAYMENT_STATUS } from "../data/constant";
 
-const url = "mongodb+srv://jatinsharmaaj:123456Jhu@cluster0.nxypk97.mongodb.net"; // Replace with your MongoDB connection URL
-const dbName = "Cluster0"; // Replace with your database name
+const url = MONGO_URI; // Replace with your MongoDB connection URL
+const dbName = "MLM"; // Replace with your database name
 
 const client = new MongoClient(url);
 
@@ -136,11 +136,11 @@ export const getQrCodeDetails = async (
     });
     if(fileDetails){
  // Create a new MongoDB client and establish a connection
- const client = new MongoClient("mongodb+srv://jatinsharmaaj:123456Jhu@cluster0.nxypk97.mongodb.net");
+ const client = new MongoClient(MONGO_URI);
  await client.connect();
 
  // Specify the database and bucket name
- const dbName = "Cluster0";
+ const dbName = "MLM";
  const bucketName = "UserPaymentQR";
 
  // Create a GridFSBucket instance

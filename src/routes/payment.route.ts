@@ -7,6 +7,7 @@ import {
   updatePaymentDetails,
 } from "../controllers/payment.controller";
 import { userIdDecryption } from "../services/security.service";
+import { MONGO_URI } from "../data/constant";
 const paymentDetailsRouter = express.Router();
 
 paymentDetailsRouter.route("/payment/detail").get(getPaymentDetails);
@@ -16,7 +17,7 @@ paymentDetailsRouter.route("/payment/qr-detail").get(getQrCodeDetails);
 const multer = require("multer");
 const { GridFsStorage } = require("multer-gridfs-storage");
 require("dotenv").config();
-const url: string = "mongodb+srv://jatinsharmaaj:123456Jhu@cluster0.nxypk97.mongodb.net/MLM";
+const url: string = `${MONGO_URI}/MLM`;
 
 paymentDetailsRouter.use(authMiddleware);
 const storage = new GridFsStorage({
