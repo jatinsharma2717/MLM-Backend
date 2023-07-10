@@ -17,7 +17,7 @@ paymentDetailsRouter.route("/payment/qr-detail").get(getQrCodeDetails);
 const multer = require("multer");
 const { GridFsStorage } = require("multer-gridfs-storage");
 require("dotenv").config();
-const url: string = `${MONGO_URI}/MLM`;
+const url: string = MONGO_URI;
 
 paymentDetailsRouter.use(authMiddleware);
 const storage = new GridFsStorage({

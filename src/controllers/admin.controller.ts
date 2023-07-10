@@ -11,10 +11,7 @@ import { PaymentHistoryUser } from "../modals/payment-history";
 import { ACCOUNT_STATUS, MONGO_URI } from "../data/constant";
 import { deleteUserResponse } from "../data/user";
 
-const url = MONGO_URI; // Replace with your MongoDB connection URL
-const dbName = "MLM"; // Replace with your database name
 
-const client = new MongoClient(url);
 
 export const joinUser = async (req: Request, res: Response) => {
   const accountid = req.headers.accountid;
