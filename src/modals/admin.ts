@@ -10,7 +10,7 @@ const joinUserSchema = new Schema(
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },
-  { versionKey: false }
+  { versionKey: false } 
 );
 
 export const JoinUserDetails = model<JoinUser>("JoinUser", joinUserSchema);
