@@ -1,6 +1,6 @@
 export const useridEncryptionKey = "Hello1234";
 export const JWT_SECRET_KEY = "Hello1234";
-export const MONGO_URI = "mongodb+srv://jatinsharmaaj:123456Jhu@cluster0.nxypk97.mongodb.net";
+export const MONGO_URI = "mongodb+srv://jatinsharmaaj:123456Jhu@cluster0.nxypk97.mongodb.net/?retryWrites=true&w=majority";
 export const ACCOUNT_STATUS = {
     ACTIVE:1,
     DEACTIVE:2,
