@@ -8,5 +8,5 @@ const activeUserSchema = new mongoose_1.Schema({
     isactive: { type: Number, default: 1 },
     activateddate: { type: Date, default: Date.now },
 }, { versionKey: false });
-exports.ActiveUsers = (0, mongoose_1.model)('activeusers', activeUserSchema);
+exports.ActiveUsers = (0, mongoose_1.model)("activeusers", activeUserSchema);
 //# sourceMappingURL=active-user.js.map
