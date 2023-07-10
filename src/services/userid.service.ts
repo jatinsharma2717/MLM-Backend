@@ -3,11 +3,13 @@ import { Users } from "../modals/user";
 // Generate a sequential user ID
 export const generateUserId = async () => {
   try {
-    // Find the highest user ID in the database
-    const highestIdUser = await Users.findOne().sort({ userid: -1 }).lean();
+    const pipeline = [
+      { $group: { _id: null, highestId: { $max: "$userid" } } },
+      { $project: { _id: 0, highestId: 1 } },
+    ];
 
-    // Extract the highest ID and handle the case when no user is found
-    let highestId = highestIdUser ? highestIdUser.userid : 0;
+    const result = await Users.aggregate(pipeline).exec();
+    const highestId = result.length > 0 ? result[0].highestId : 0;
 
     // Increment the highest ID by 1 for the new user
     const newUserId = highestId + 1;
@@ -19,3 +21,4 @@ export const generateUserId = async () => {
     throw error;
   }
 };
+
