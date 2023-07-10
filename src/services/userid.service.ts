@@ -4,9 +4,8 @@ import { Users } from "../modals/user";
 export const generateUserId = async () => {
   try {
     // Find the highest user ID in the database
-    const highestIdUser = await Users.countDocuments();
-
-    let highestId = highestIdUser ? highestIdUser : 0;
+    const highestIdUser = await Users.findOne().sort({ userid: -1 }).maxTimeMS(30000);
+    let highestId = highestIdUser ? highestIdUser.userid : 0;
 
     // Increment the highest ID by 1 for the new user
     return highestId + 1;
