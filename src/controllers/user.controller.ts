@@ -99,7 +99,7 @@ export const registerUser = async (req: Request, res: Response) => {
       // level1 end array
       
       // level2 start array
-      const level1User: any = await Users.findOne({ userid: +referbyuserid });
+      const level1User: any = await Users.find({ userid: +referbyuserid });
       if (level1User?.referbyuserid) {
         await UserLevels.findOneAndUpdate(
           { userid: +level1User?.referbyuserid },
@@ -115,7 +115,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
       // level3 start array
 
-      const level2User: any = await Users.findOne({
+      const level2User: any = await Users.find({
         userid: +level1User?.referbyuserid,
       });
       if (level2User?.referbyuserid) {
@@ -130,7 +130,7 @@ export const registerUser = async (req: Request, res: Response) => {
         );
          // level4 start array
       if (level2User?.referbyuserid) {
-        const level3User: any = await Users.findOne({
+        const level3User: any = await Users.find({
           userid: +level2User?.referbyuserid,
         });
         if (level3User?.referbyuserid) {
@@ -145,7 +145,7 @@ export const registerUser = async (req: Request, res: Response) => {
           );
           // level5 start array
 
-          const level4User: any = await Users.findOne({
+          const level4User: any = await Users.find({
             userid: +level3User?.referbyuserid,
           });
           if (level4User?.referbyuserid) {
@@ -160,7 +160,7 @@ export const registerUser = async (req: Request, res: Response) => {
             );
             // level6 start array
 
-            const level5User: any = await Users.findOne({
+            const level5User: any = await Users.find({
               userid: +level4User?.referbyuserid,
             });
             if (level5User?.referbyuserid) {
@@ -233,7 +233,7 @@ export const registerUser = async (req: Request, res: Response) => {
     }
 
     // if(referDetails){
-    //   const existingUserLevel = await UserLevels.findOne({
+    //   const existingUserLevel = await UserLevels.find({
     //     refereduserid: referbyuserid,
     //   });
     // let newLevels: { [key: string]: any } = existingUserLevel?.levels || {};
@@ -341,7 +341,7 @@ export const loginUser = async (req: Request, res: Response) => {
       });
     }
 
-    const existingUser = await Users.findOne({ userid });
+    const existingUser:any = await Users.find({ userid:userid });
 
     if (!existingUser) {
       return res.status(400).send({
@@ -470,7 +470,7 @@ export const getUserDetails = async (req: Request, res: Response) => {
   const encrypteduserId = await userIdDecryption(accountid.toString());
 
   try {
-    const user = await Users.findOne({ userid: +encrypteduserId });
+    const user = await Users.find({ userid: +encrypteduserId });
     const responseBody = {
       data: user,
       message: "success",

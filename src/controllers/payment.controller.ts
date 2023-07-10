@@ -99,7 +99,7 @@ export const getPaymentDetails = async (
     }
 
     const encryptedUserId = await userIdDecryption(accountId.toString());
-    const user = await paymentDetails.findOne({ userid: encryptedUserId });
+    const user = await paymentDetails.find({ userid: encryptedUserId });
 
     const responseBody = {
       data: user,
@@ -128,7 +128,7 @@ export const getQrCodeDetails = async (
     }
 
     const encryptedUserId = await userIdDecryption(accountId.toString());
-    const fileDetails: any = await paymentDetails.findOne({
+    const fileDetails: any = await paymentDetails.find({
       userid: +encryptedUserId,
     });
     if(fileDetails){
@@ -201,7 +201,7 @@ export const getPaymentIncome = async (
     }
     const encrypteduserId = await userIdDecryption(accountId.toString());
 
-    const existingUserLevel = await UserLevels.findOne({
+    const existingUserLevel:any = await UserLevels.find({
       userid: encrypteduserId,
     });
     const level1 = existingUserLevel?.level1;

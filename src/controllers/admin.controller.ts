@@ -119,7 +119,7 @@ export const updateUserStatus = async (req: Request, res: Response) => {
       // level1 end array
 
       // level2 start array
-      const level1User: any = await Users.findOne({ userid: +referbyuserid });
+      const level1User: any = await Users.find({ userid: +referbyuserid });
       if (level1User?.referbyuserid) {
         await UserLevels.findOneAndUpdate(
           { userid: +level1User?.referbyuserid, "level2.userid": userid },
@@ -131,7 +131,7 @@ export const updateUserStatus = async (req: Request, res: Response) => {
 
       // level3 start array
 
-      const level2User: any = await Users.findOne({
+      const level2User: any = await Users.find({
         userid: +level1User?.referbyuserid,
       });
       if (level2User?.referbyuserid) {
@@ -142,7 +142,7 @@ export const updateUserStatus = async (req: Request, res: Response) => {
         );
         // level4 start array
         if (level2User?.referbyuserid) {
-          const level3User: any = await Users.findOne({
+          const level3User: any = await Users.find({
             userid: +level2User?.referbyuserid,
           });
           if (level3User?.referbyuserid) {
@@ -153,7 +153,7 @@ export const updateUserStatus = async (req: Request, res: Response) => {
             );
             // level5 start array
 
-            const level4User: any = await Users.findOne({
+            const level4User: any = await Users.find({
               userid: +level3User?.referbyuserid,
             });
             if (level4User?.referbyuserid) {
@@ -164,7 +164,7 @@ export const updateUserStatus = async (req: Request, res: Response) => {
               );
               // level6 start array
 
-              const level5User: any = await Users.findOne({
+              const level5User: any = await Users.find({
                 userid: +level4User?.referbyuserid,
               });
               if (level5User?.referbyuserid) {
@@ -208,7 +208,7 @@ export const getPaymentDetailsForAdmin = async (
       return;
     }
 
-    const user = await paymentDetails.findOne({ userid: req.params.userid });
+    const user = await paymentDetails.find({ userid: req.params.userid });
 
     const responseBody = {
       data: user,
@@ -236,7 +236,7 @@ export const getQrCodeDetailsForAdmin = async (
       return;
     }
 
-    const fileDetails: any = await paymentDetails.findOne({
+    const fileDetails: any = await paymentDetails.find({
       userid: +req.params.userid,
     });
 
@@ -320,7 +320,7 @@ export const payPaymentToUser = async (req: Request, res: Response) => {
   }
 
   try {
-    let user = await PayemntToUser.findOne({ userid });
+    let user:any = await PayemntToUser.find({ userid });
     if (!user) {
       user = new PayemntToUser({ userid, amount });
     } else {
@@ -367,7 +367,7 @@ export const getPaymentIncome = async (
       return;
     }
 
-    const existingUserLevel = await UserLevels.findOne({
+    const existingUserLevel:any = await UserLevels.find({
       userid: req.params.userid,
     });
     const level1 = existingUserLevel?.level1;

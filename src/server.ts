@@ -5,7 +5,7 @@ import * as database from "./database";
 import usersRouter from "./routes/user.route";
 import paymentDetailsRouter from "./routes/payment.route";
 import adminRouter from "./routes/admin.route";
-const databases = database
+const databases =  database;
 // Our Express APP config
 const app = express();
 app.use(express.json());
