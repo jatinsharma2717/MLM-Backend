@@ -341,7 +341,8 @@ export const loginUser = async (req: Request, res: Response) => {
       });
     }
 
-    const existingUser:any = await Users.find({ userid:userid });
+    const dbUser:any = await Users.find({ userid:userid });
+    const existingUser:any = dbUser.length ? dbUser[0] : [];
 
     if (!existingUser) {
       return res.status(400).send({
