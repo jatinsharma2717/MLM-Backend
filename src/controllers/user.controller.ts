@@ -473,7 +473,7 @@ export const getUserDetails = async (req: Request, res: Response) => {
   try {
     const user = await Users.find({ userid: +encrypteduserId });
     const responseBody = {
-      data: user,
+      data: user[0],
       message: "success",
       statusCode: 200,
     };
