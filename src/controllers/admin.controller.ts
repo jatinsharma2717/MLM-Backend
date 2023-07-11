@@ -119,7 +119,10 @@ export const updateUserStatus = async (req: Request, res: Response) => {
       // level1 end array
 
       // level2 start array
-      const level1User: any = await Users.find({ userid: +referbyuserid });
+      const level1DBUser: any = await Users.find({ userid: +referbyuserid });
+
+      const level1User: any = level1DBUser.length ? level1DBUser[0] : [];
+
       if (level1User?.referbyuserid) {
         await UserLevels.findOneAndUpdate(
           { userid: +level1User?.referbyuserid, "level2.userid": userid },
@@ -131,9 +134,11 @@ export const updateUserStatus = async (req: Request, res: Response) => {
 
       // level3 start array
 
-      const level2User: any = await Users.find({
+      const level2DBUser: any = await Users.find({
         userid: +level1User?.referbyuserid,
       });
+      const level2User: any = level2DBUser.length ? level2DBUser[0] : [];
+
       if (level2User?.referbyuserid) {
         await UserLevels.findOneAndUpdate(
           { userid: +level2User?.referbyuserid, "level3.userid": userid },
@@ -142,9 +147,11 @@ export const updateUserStatus = async (req: Request, res: Response) => {
         );
         // level4 start array
         if (level2User?.referbyuserid) {
-          const level3User: any = await Users.find({
+          const level3DBUser: any = await Users.find({
             userid: +level2User?.referbyuserid,
           });
+          const level3User: any = level3DBUser.length ? level3DBUser[0] : [];
+
           if (level3User?.referbyuserid) {
             await UserLevels.findOneAndUpdate(
               { userid: +level3User?.referbyuserid, "level4.userid": userid },
@@ -153,9 +160,11 @@ export const updateUserStatus = async (req: Request, res: Response) => {
             );
             // level5 start array
 
-            const level4User: any = await Users.find({
+            const level4DBUser: any = await Users.find({
               userid: +level3User?.referbyuserid,
             });
+            const level4User: any = level4DBUser.length ? level4DBUser[0] : [];
+
             if (level4User?.referbyuserid) {
               await UserLevels.findOneAndUpdate(
                 { userid: +level4User?.referbyuserid, "level5.userid": userid },
@@ -164,9 +173,11 @@ export const updateUserStatus = async (req: Request, res: Response) => {
               );
               // level6 start array
 
-              const level5User: any = await Users.find({
+              const level5DBUser: any = await Users.find({
                 userid: +level4User?.referbyuserid,
               });
+              const level5User: any = level5DBUser.length ? level5DBUser[0] : [];
+
               if (level5User?.referbyuserid) {
                 await UserLevels.findOneAndUpdate(
                   {
@@ -211,7 +222,7 @@ export const getPaymentDetailsForAdmin = async (
     const user = await paymentDetails.find({ userid: req.params.userid });
 
     const responseBody = {
-      data: user,
+      data:  user ? user[0] : [],
       message: "success",
       statusCode: 200,
     };
@@ -236,10 +247,10 @@ export const getQrCodeDetailsForAdmin = async (
       return;
     }
 
-    const fileDetails: any = await paymentDetails.find({
+    const fileDbDetails: any = await paymentDetails.find({
       userid: +req.params.userid,
     });
-
+const fileDetails= fileDbDetails.length ? fileDbDetails[0] : [];
     if (!fileDetails) {
       res.status(404).json({
         message: "File not found",
@@ -320,7 +331,8 @@ export const payPaymentToUser = async (req: Request, res: Response) => {
   }
 
   try {
-    let user:any = await PayemntToUser.find({ userid });
+    let dbUser:any = await PayemntToUser.find({ userid });
+    let user = dbUser.length ? dbUser[0] : [];
     if (!user) {
       user = new PayemntToUser({ userid, amount });
     } else {
@@ -367,9 +379,10 @@ export const getPaymentIncome = async (
       return;
     }
 
-    const existingUserLevel:any = await UserLevels.find({
+    const existingDBUserLevel:any = await UserLevels.find({
       userid: req.params.userid,
     });
+    const existingUserLevel:any = existingDBUserLevel.length ? existingDBUserLevel[0] : [];
     const level1 = existingUserLevel?.level1;
     const level2 = existingUserLevel?.level2;
     const level3 = existingUserLevel?.level3;
