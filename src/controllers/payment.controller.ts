@@ -102,7 +102,7 @@ export const getPaymentDetails = async (
     const user = await paymentDetails.find({ userid: encryptedUserId });
 
     const responseBody = {
-      data: user,
+      data: user.length ? user[0] : [],
       message: "success",
       statusCode: 200,
     };
@@ -128,9 +128,10 @@ export const getQrCodeDetails = async (
     }
 
     const encryptedUserId = await userIdDecryption(accountId.toString());
-    const fileDetails: any = await paymentDetails.find({
+    const fileDbDetails: any = await paymentDetails.find({
       userid: +encryptedUserId,
     });
+    const fileDetails= fileDbDetails.length ? fileDbDetails[0] : [];
     if(fileDetails){
  // Create a new MongoDB client and establish a connection
  const client = new MongoClient(MONGO_URI);
@@ -201,9 +202,10 @@ export const getPaymentIncome = async (
     }
     const encrypteduserId = await userIdDecryption(accountId.toString());
 
-    const existingUserLevel:any = await UserLevels.find({
+    const existingDbUserLevel:any = await UserLevels.find({
       userid: encrypteduserId,
     });
+    const existingUserLevel= existingDbUserLevel.length ? existingDbUserLevel[0] : [];
     const level1 = existingUserLevel?.level1;
     const level2 = existingUserLevel?.level2;
     const level3 = existingUserLevel?.level3;
