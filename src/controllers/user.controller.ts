@@ -99,7 +99,10 @@ export const registerUser = async (req: Request, res: Response) => {
       // level1 end array
       
       // level2 start array
-      const level1User: any = await Users.find({ userid: +referbyuserid });
+      const level1DBUser: any = await Users.find({ userid: +referbyuserid });
+
+      const level1User: any = level1DBUser.length ? level1DBUser[0] : [];
+
       if (level1User?.referbyuserid) {
         await UserLevels.findOneAndUpdate(
           { userid: +level1User?.referbyuserid },
@@ -114,10 +117,11 @@ export const registerUser = async (req: Request, res: Response) => {
       // level2 end array
 
       // level3 start array
-
-      const level2User: any = await Users.find({
+      const level2DBUser: any = await Users.find({
         userid: +level1User?.referbyuserid,
       });
+      const level2User: any = level2DBUser.length ? level2DBUser[0] : [];
+
       if (level2User?.referbyuserid) {
         await UserLevels.findOneAndUpdate(
           { userid: +level2User?.referbyuserid },
@@ -130,9 +134,11 @@ export const registerUser = async (req: Request, res: Response) => {
         );
          // level4 start array
       if (level2User?.referbyuserid) {
-        const level3User: any = await Users.find({
+        const level3DBUser: any = await Users.find({
           userid: +level2User?.referbyuserid,
         });
+        const level3User: any = level3DBUser.length ? level3DBUser[0] : [];
+
         if (level3User?.referbyuserid) {
           await UserLevels.findOneAndUpdate(
             { userid: +level3User?.referbyuserid },
@@ -145,9 +151,11 @@ export const registerUser = async (req: Request, res: Response) => {
           );
           // level5 start array
 
-          const level4User: any = await Users.find({
+          const level4DBUser: any = await Users.find({
             userid: +level3User?.referbyuserid,
           });
+          const level4User: any = level4DBUser.length ? level4DBUser[0] : [];
+
           if (level4User?.referbyuserid) {
             await UserLevels.findOneAndUpdate(
               { userid: +level4User?.referbyuserid },
@@ -160,9 +168,11 @@ export const registerUser = async (req: Request, res: Response) => {
             );
             // level6 start array
 
-            const level5User: any = await Users.find({
+            const level5DBUser: any = await Users.find({
               userid: +level4User?.referbyuserid,
             });
+            const level5User: any = level5DBUser.length ? level5DBUser[0] : [];
+
             if (level5User?.referbyuserid) {
               await UserLevels.findOneAndUpdate(
                 { userid: +level5User?.referbyuserid },
